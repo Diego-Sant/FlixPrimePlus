@@ -1,0 +1,18 @@
+Next-app:
+npx create-next-app --typescript
+npm run dev
+
+Tailwindcss:
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+Prisma:
+Baixar extensão Prisma no VSCode
+npm install -D prisma
+npx prisma init
+npm install @prisma/client
+npx prisma db push (Passar os dados do schema.prisma para o MongoDB)
+
+Next Auth:
+npm install next-auth
+npm install bcrypt || npm install -D @types/bcrypt

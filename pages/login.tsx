@@ -1,19 +1,65 @@
 import Input from '@/components/input';
 import Image from 'next/image';
+import axios from "axios";
 
+import { signIn } from "next-auth/react";
+import { ChangeEvent, useCallback, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useCallback, useState } from 'react';
 
 const Login  = () => {
+    const router = useRouter();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [name, setName] = useState("");
 
-    const [variant, setVariant] = useState("login");
+    const [rememberMe, setRememberMe] = useState(false);
 
+    const [variant, setVariant] = useState("login");
     const toggleVariant = useCallback(() => {
-        setVariant((currentVariant) => currentVariant === 'login' ? 'register' : 'login')
-    }, [])
+        setVariant((currentVariant) => currentVariant === 'login' ? 'registrar' : 'login')
+    }, []);
+
+    const imageStyle = {
+        width: 'auto',
+        height: 'auto',
+    };
+
+    const handleRememberMeChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setRememberMe(e.target.checked)
+    }
+
+    const login = useCallback(async () => {
+        try {
+            await signIn('credentials', {
+                email,
+                password,
+                redirect: false,
+                callbackUrl: '/',
+                expires: rememberMe ? 30 : undefined, // Caso o checkbox for marcado, irá durar 30 dias logado, caso não for, será deslogado logo depois de sair da página
+            });
+
+            router.push('/'); // Enviar para o caminho "/"
+        } catch (error) {
+            console.log(error)
+        }
+    }, [email, password, rememberMe, router])
+
+    const register = useCallback(async () => {
+        try {
+            await axios.post('/api/registrar', {
+                email,
+                name,
+                password,
+                confirmPassword
+            })
+
+            login();
+        } catch (error) {
+            console.log(error)
+        }
+    }, [email, name, password, confirmPassword, login])
  
     return  (
         // position relative, full height/width(ocupar o espaço todo), buscar no repositório da imagem, sem repetições, fixado na tela e sem espaços em branco
@@ -22,8 +68,8 @@ const Login  = () => {
             <div className="bg-black w-full h-full md:bg-opacity-50">
                 {/* padding x(horizontal) e padding y(vertical) */}
                 <nav className="px-12 py-5">
-                    {/* o height não muda absolutamente nada, mas foi preciso usar para não dar erro */}
-                    <Image src="/images/logo.png" alt="FlixPrime+" height={0} width={150} />
+                    {/* const ImageStyle, height e priority não mudam absolutamente nada, mas tiveram que ser adicionados para sumirem os warnings */}
+                    <Image src="/images/logo.png" alt="FlixPrime+" height={150} width={150} priority={true} style={imageStyle} />
                 </nav>
                 <div className="flex justify-center">
 
@@ -39,14 +85,13 @@ const Login  = () => {
 
                         {/* flex-col faz com que os filhos dessa divisão sejam em colunas e o gap-4 adiciona um espaçamento de 4 pixels */}
                         <div className='flex flex-col gap-4'>
-                            {/* caso esteja na tela de login, não aparecerá o input de usuário, caso esteja na tela de register, aparecerá o input */}
                             {variant === 'login' ? "" : <Input label="Usuário" onChange={(e) => setName(e.target.value)} id="name" value={name} /> }
                             <Input label="Email" onChange={(e) => setEmail(e.target.value)} id="email" type="email" value={email} />
                             <Input label="Senha" onChange={(e) => setPassword(e.target.value)} id="password" type="password" value={password} />
+                            {variant === 'login' ? "" : <Input label="Confirme a senha" onChange={(e) => setConfirmPassword(e.target.value)} id="confirmPassword" type="password" value={confirmPassword} /> }
                         </div>
 
-                        {/* caso esteja na tela de login, aparecerá "Entrar", caso esteja na tela de register, aparecerá "Criar uma conta" */}
-                        <button className='bg-[#209cee] py-3 text-white rounded-md w-full mt-10 hover:bg-blue-500 transition'>
+                        <button onClick={variant === 'login' ? login : register} className='bg-[#209cee] py-3 text-white rounded-md w-full mt-10 hover:bg-blue-500 transition'>
                             {variant === 'login' ? "Entrar" : "Criar uma conta" }
                         </button>
 
@@ -55,13 +100,12 @@ const Login  = () => {
                         <div className='flex items-center justify-between mt-2 w-full'> {/* justify-between para deixar o checkbox com o lembre-se de mim de um lado e o precisa de ajuda no outro */}
                             <div className='flex items-center'>
                                 {/* accent-neutral-400 para deixar a cor do checkbox mais clara e deixar o quadrado 4x4 */}
-                                <input type="checkbox" className=' accent-neutral-400 mr-1 h-4 w-4' />
+                                <input type="checkbox" className=' accent-neutral-400 mr-1 h-4 w-4' onChange={handleRememberMeChange} />
                                 <p className='text-neutral-300 text-sm'>Lembre-se de mim</p>
                             </div>
                             <p className='text-neutral-300 hover:underline cursor-pointer text-sm'>Precisa de ajuda?</p>
                         </div> : "" }
 
-                        {/* caso esteja na tela de login, aparecerá o "novo por aqui?", caso seja no register, aparecerá "já tem uma conta?" */}
                         {variant === 'login' ? 
                             <p className='text-neutral-500 mt-12'>Novo por aqui?<span onClick={toggleVariant} className='text-white ml-1 hover:underline cursor-pointer'>Assine agora</span></p>
                             : 

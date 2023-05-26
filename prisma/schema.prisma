@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(auto()) @map("_id") @db.ObjectId // Procedimento padrão para uso de prisma com MongoDB
+  name String
+  image String? // Opicional
+  email String? @unique // Opicional por ter outras alternativas com o google e o github
+  emailVerified DateTime? // Opicional
+  hashedPassword String? // Opicional pelo mesmo motivo que o email é opicional
+  createdAt DateTime @default(now()) // Pegar o horário exato de quando for feita a requisição
+  updatedAt DateTime @updatedAt // Irá automaticamente pegar o horário de update
+  favoriteIds String[] @db.ObjectId // Filmes que irão ficar nos favoritos
+  sessions Session[]
+  accounts Account[]
+}
+
+// Algumas configurações como refresh_token, acess_token e afins foram colocadas para caso seja um conta do Google
+model Account {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId // Define o campo userId como uma string que representa o ID do usuário associado a essa conta
+  type String
+  provider String
+  providerAccountId String
+  refresh_token String? @db.String
+  acess_token String? @db.String
+  expires_at Int?
+  token_type String?
+  scope String?
+  id_token String? @db.String
+  session_state String?
+
+  // Define uma relação de muitos-para-um entre os modelos Account e User, onde um usuário pode ter várias contas associadas a ele
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Isso garante que não haja duplicatas com a mesma combinação de provedor e ID do provedor
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String @unique
+  userId String @db.ObjectId
+  expires DateTime
+
+  // Define uma relação de muitos-para-um entre os modelos Session e User, onde uma sessão pertence a um usuário
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token String @unique
+  expires DateTime
+
+  // A combinação desses dois campos deve ser única na coleção de tokens de verificação
+  @@unique([identifier, token])
+}
+
+model Movie {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String
+  videoUrl String
+  thumbnailUrl String
+  contentRatingURL String
+  rating Int
+  genre String
+  duration String
+}
