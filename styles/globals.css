@@ -1,0 +1,17 @@
+/* Reset e importação das classes de css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* fundo zinc(cor) com 900 de intensidade de cor e ocultar a rolagem horizontal*/
+body {
+    @apply bg-zinc-900 h-full overflow-x-hidden;
+}
+
+#__next {
+    @apply h-full;
+}
+
+html {
+    @apply h-full;
+}
