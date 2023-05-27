@@ -2,10 +2,17 @@ import NextAuth from "next-auth/next";
 import Credentials from "next-auth/providers/credentials";
 import {compare} from "bcrypt";
 
+import GoogleProvider from "next-auth/providers/google";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+
 import prismadb from "@/lib/prismadb";
 
 export default NextAuth({
     providers: [
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID || "",
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET || ""
+        }),
         Credentials({
             id: 'credentials', // Chamado no login.tsx
             name: 'Credentials',
@@ -55,6 +62,7 @@ export default NextAuth({
     },
     // Ativar o debug quando estiver em processo de desenvolvimento
     debug: process.env.NODE_ENV === 'development',
+    adapter: PrismaAdapter(prismadb),
     // Usar tokens JWT
     session: {
         strategy: 'jwt',

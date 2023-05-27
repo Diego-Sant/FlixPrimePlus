@@ -16,3 +16,13 @@ npx prisma db push (Passar os dados do schema.prisma para o MongoDB)
 Next Auth:
 npm install next-auth
 npm install bcrypt || npm install -D @types/bcrypt
+
+Provider:
+npm install @next-auth/prisma-adapter
+
+Github:
+Settings -> Developer settings -> OAuth Apps -> Register a new application -> Homepage URL(http://localhost:3000) / Authorization callback URL(http://localhost:3000) -> Copy Client ID -> Generate a new client secret -> Copy client secrets
+
+Google:
+Google developer console -> Clicar no projeto atual -> Novo Projeto -> Local(Sem organização) -> Criar -> Pesquisa(APIs e serviços) -> Tela de permissão OAuth -> Externo -> Criar -> E-mail para suporte(seu) -> Endereços de e-mail(seu) -> Salvar e continuar
+-> Salvar e continuar -> Salvar e continuar -> Credenciais -> Criar credenciais -> ID do client OAuth -> Aplicativo da Web -> URLs de redirecionamento autorizados -> Adicionar URL(http://localhost:3000/api/auth/callback/google) -> Criar -> Copiar ID do cliente e Chave secreta do cliente

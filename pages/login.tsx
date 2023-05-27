@@ -4,21 +4,23 @@ import axios from "axios";
 
 import { signIn } from "next-auth/react";
 import { ChangeEvent, useCallback, useState } from 'react';
-import { useRouter } from 'next/router';
+
+import { FcGoogle } from 'react-icons/fc';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 
 const Login  = () => {
-    const router = useRouter();
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [name, setName] = useState("");
 
     const [rememberMe, setRememberMe] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const [variant, setVariant] = useState("login");
     const toggleVariant = useCallback(() => {
-        setVariant((currentVariant) => currentVariant === 'login' ? 'registrar' : 'login')
+        setVariant((currentVariant) => currentVariant === 'login' ? 'registrar' : 'login') // Caso o currentVariant for igual a login e for ativado, ele virará registrar, caso contrário, continuará como login
     }, []);
 
     const imageStyle = {
@@ -30,21 +32,34 @@ const Login  = () => {
         setRememberMe(e.target.checked)
     }
 
+    const togglePasswordVisibility = () => {
+        setShowPassword((prevShowPassword) => !prevShowPassword); // Código para ao clicar no ícone, ele vai deixar de ser false para true e vice e versa
+    };
+
+    const toggleConfirmPasswordVisibility = () => {
+        setShowConfirmPassword((prevShowConfirmPassword) => !prevShowConfirmPassword);
+    };
+
+    const resetPasswordVisibility = () => {
+        setShowPassword(false);
+    };
+
     const login = useCallback(async () => {
         try {
+
             await signIn('credentials', {
                 email,
                 password,
-                redirect: false,
-                callbackUrl: '/',
-                expires: rememberMe ? 30 : undefined, // Caso o checkbox for marcado, irá durar 30 dias logado, caso não for, será deslogado logo depois de sair da página
+                callbackUrl: '/perfis',
+                expires: rememberMe ? 30 : 1, // Caso o checkbox for marcado, irá durar 30 dias logado, caso não for, será deslogado logo depois de sair da página
             });
 
-            router.push('/'); // Enviar para o caminho "/"
+            resetPasswordVisibility(); // Redefinir a visibilidade da senha
+            
         } catch (error) {
             console.log(error)
         }
-    }, [email, password, rememberMe, router])
+    }, [email, password, rememberMe])
 
     const register = useCallback(async () => {
         try {
@@ -54,6 +69,8 @@ const Login  = () => {
                 password,
                 confirmPassword
             })
+
+            resetPasswordVisibility();
 
             login();
         } catch (error) {
@@ -87,8 +104,20 @@ const Login  = () => {
                         <div className='flex flex-col gap-4'>
                             {variant === 'login' ? "" : <Input label="Usuário" onChange={(e) => setName(e.target.value)} id="name" value={name} /> }
                             <Input label="Email" onChange={(e) => setEmail(e.target.value)} id="email" type="email" value={email} />
-                            <Input label="Senha" onChange={(e) => setPassword(e.target.value)} id="password" type="password" value={password} />
-                            {variant === 'login' ? "" : <Input label="Confirme a senha" onChange={(e) => setConfirmPassword(e.target.value)} id="confirmPassword" type="password" value={confirmPassword} /> }
+                            <Input label="Senha" onChange={(e) => setPassword(e.target.value)} id="password" type={showPassword ? "type" : "password"} value={password} endSlot={
+                                showPassword ? (
+                                    <AiOutlineEye className='text-neutral-500 cursor-pointer' onClick={togglePasswordVisibility}/>
+                                ) : (
+                                    <AiOutlineEyeInvisible className='text-neutral-500 cursor-pointer' onClick={togglePasswordVisibility}/>
+                                )
+                            } />
+                            {variant === 'login' ? "" : <Input label="Confirme a senha" onChange={(e) => setConfirmPassword(e.target.value)} id="confirmPassword" type={showConfirmPassword ? "type" : "password"} value={confirmPassword} endSlot={
+                                showConfirmPassword ? (
+                                    <AiOutlineEye className='text-neutral-500 cursor-pointer' onClick={toggleConfirmPasswordVisibility}/>
+                                ) : (
+                                    <AiOutlineEyeInvisible className='text-neutral-500 cursor-pointer' onClick={toggleConfirmPasswordVisibility}/>
+                                )
+                            } /> }
                         </div>
 
                         <button onClick={variant === 'login' ? login : register} className='bg-[#209cee] py-3 text-white rounded-md w-full mt-10 hover:bg-blue-500 transition'>
@@ -105,6 +134,12 @@ const Login  = () => {
                             </div>
                             <p className='text-neutral-300 hover:underline cursor-pointer text-sm'>Precisa de ajuda?</p>
                         </div> : "" }
+
+                        <div className='flex flex-row items-center gap-4 mt-10 justify-center'>
+                             <div onClick={() => signIn('google', { callbackUrl: '/perfis' })} className='w-32 h-10 bg-white rounded-md flex items-center justify-center cursor-pointer hover:opacity-80 transition'>
+                                 <FcGoogle size={30} />
+                             </div>
+                         </div>
 
                         {variant === 'login' ? 
                             <p className='text-neutral-500 mt-12'>Novo por aqui?<span onClick={toggleVariant} className='text-white ml-1 hover:underline cursor-pointer'>Assine agora</span></p>
