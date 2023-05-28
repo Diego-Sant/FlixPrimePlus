@@ -46,6 +46,9 @@ const Profiles = () => {
     const [imageSrc, setImageSrc] = useState('');
     const {data: user} = useCurrentUser();
     const router = useRouter();
+    
+    // Pegar apenas o primeiro nome
+    const firstName = user?.name.split(' ')[0];
 
     useEffect(() => {
         const randomImage = getRandomImage();
@@ -55,16 +58,16 @@ const Profiles = () => {
     return (
         <div className="flex items-center h-full justify-center">
             <div className="flex flex-col">
-                <h1 className="text-3xl md:text-6xl text-white text-center">Quem está assistindo?</h1>
+                <h1 className="text-2xl md:text-4xl text-white text-center">Quem está assistindo?</h1>
                 <div className="flex items-center justify-center gap-8 mt-10">
                     <div onClick={() => router.push('/')}>
                         {/* group tem a mesma funcionalidade de peer do input.tsx */}
-                        <div className="group flex-row w-44 mx-auto">
-                            <div className="w-44 h-44 rounded-md flex items-center justify-center border-2 border-transparent group-hover:cursor-pointer group-hover:border-white overflow-hidden">
-                                <Image src={imageSrc} alt={user?.name} width={150} height={150} priority={true} style={imageStyle} />
+                        <div className="group flex-row w-26 mx-auto">
+                            <div className="w-26 h-26 rounded-md flex items-center justify-center border-2 border-transparent group-hover:cursor-pointer group-hover:border-white overflow-hidden">
+                                <Image src={imageSrc || "/images/default-blue.png"} alt={user?.name || "Foto de perfil"} width={110} height={110} priority={true} style={imageStyle} />
                             </div>
-                            <div className="mt-4 text-gray-400 text-2xl text-center group-hover:text-white">
-                                {user?.name}
+                            <div className="mt-4 text-gray-400 text-1xl text-center group-hover:text-white">
+                                {firstName}
                             </div>
                         </div>
                     </div>

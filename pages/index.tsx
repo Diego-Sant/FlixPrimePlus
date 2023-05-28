@@ -1,7 +1,7 @@
-import { NextPageContext } from "next"
-import { getSession, signOut } from "next-auth/react"
+import Navbar from "@/components/Navbar";
 
-import useCurrentUser from "@/hooks/useCurrentUser";
+import { NextPageContext } from "next";
+import { getSession } from "next-auth/react";
 
 // Não é possivel usar o serverAuth pois o index.tsx faz parte do client
 export async function getServerSideProps(context: NextPageContext) {
@@ -24,13 +24,10 @@ export async function getServerSideProps(context: NextPageContext) {
 }
 
 export default function Home() {
-  const { data: user } = useCurrentUser();
 
   return (
     <>
-      <h1 className="text-4xl text-green-500">FlixPrime+</h1>
-      <p className="text-white">Logado como: {user?.name}</p>
-      <button className="h-10 w-full bg-white" onClick={() => signOut()}>Sair</button>
+      <Navbar />
     </>
   )
 }

@@ -3,9 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* fundo zinc(cor) com 900 de intensidade de cor e ocultar a rolagem horizontal*/
+/* ocultar a rolagem horizontal*/
 body {
-    @apply bg-zinc-900 h-full overflow-x-hidden;
+    @apply bg-[#141414] h-full overflow-x-hidden;
+    min-height: 200vh;
 }
 
 #__next {
