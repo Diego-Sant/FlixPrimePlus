@@ -16,3 +16,101 @@ body {
 html {
     @apply h-full;
 }
+
+@media (max-width: 445px) {
+    .descriptiontext {
+        display: none;
+    }
+    .text-1xl {
+        font-size: 0.8em;
+        width: 70%;
+        margin-top: 20px;
+    }
+}
+
+@media (min-width: 700px) {
+    .buttonsize svg {
+        font-size: 25px;
+    }
+}
+
+@media (min-width: 768px) {
+    .descriptiontext {
+        font-size: 15px !important;
+    }
+    .md\:top-\[60\%\] {
+        top: 40% !important;
+    }
+    .xl\:top-\[80\%\] {
+        top: 60% !important;
+    }
+    .md\:text-lg {
+        width: 50% !important;
+    }
+}
+
+@media (min-width: 900px) {
+    .md\:top-\[60\%\] {
+        top: 45% !important;
+    }
+    .xl\:top-\[80\%\] {
+        top: 60% !important;
+    }
+}
+
+@media (min-width: 1000px) {
+    .md\:top-\[60\%\] {
+        top: 50% !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .buttonsize svg {
+        font-size: 25px;
+    }
+    .md\:top-\[60\%\] {
+        top: 55% !important;
+    }
+    .xl\:top-\[80\%\] {
+        top: 65% !important;
+    }
+    .md\:text-lg {
+        width: 50% !important;
+        font-size: 1.125rem !important;
+        line-height: 1.75rem !important;
+    }
+}
+
+@media (min-width: 632px) {
+    .text-1xl {
+        font-size: 1.5rem !important;
+        line-height: 2rem !important;
+    }
+}
+
+@media (min-width: 1280px) {
+    .buttonsize svg {
+        font-size: 25px;
+    }
+}
+
+@media (min-width: 1536px) {
+    .buttonsize svg {
+        font-size: 35px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .buttonsize svg {
+        font-size: 35px;
+    }
+    .xl\:top-\[80\%\] {
+        top: 75% !important;
+    }
+    .xl\:top-\[65\%\] {
+        top: 65% !important;
+    }
+    .xl\:w-\[50\%\] {
+        width: 40% !important;
+    }
+}

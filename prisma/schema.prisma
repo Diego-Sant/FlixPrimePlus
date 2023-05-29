@@ -66,14 +66,110 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model Movie {
+model EmAlta {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   title String
   description String
   videoUrl String
   thumbnailUrl String
-  contentRatingURL String
-  rating Int
+  contentRatingUrl String
+  rating String
+  genre String
+  duration String
+}
+
+model SuperHero {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String
+  videoUrl String
+  thumbnailUrl String
+  contentRatingUrl String
+  rating String
+  genre String
+  duration String
+}
+
+model Sports {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String
+  videoUrl String
+  thumbnailUrl String
+  contentRatingUrl String
+  rating String
+  genre String
+  duration String
+}
+
+model Romance {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String
+  videoUrl String
+  thumbnailUrl String
+  contentRatingUrl String
+  rating String
+  genre String
+  duration String
+}
+
+model Action {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String
+  videoUrl String
+  thumbnailUrl String
+  contentRatingUrl String
+  rating String
+  genre String
+  duration String
+}
+
+model Comedy {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String
+  videoUrl String
+  thumbnailUrl String
+  contentRatingUrl String
+  rating String
+  genre String
+  duration String
+}
+
+model MovieAnimation {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String
+  videoUrl String
+  thumbnailUrl String
+  contentRatingUrl String
+  rating String
+  genre String
+  duration String
+}
+
+model Anime {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String
+  videoUrl String
+  thumbnailUrl String
+  contentRatingUrl String
+  rating String
+  genre String
+  duration String
+}
+
+model Series {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String
+  videoUrl String
+  thumbnailUrl String
+  contentRatingUrl String
+  rating String
   genre String
   duration String
 }
