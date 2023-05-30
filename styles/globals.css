@@ -6,7 +6,6 @@
 /* ocultar a rolagem horizontal*/
 body {
     @apply bg-[#141414] h-full overflow-x-hidden;
-    min-height: 200vh;
 }
 
 #__next {
@@ -17,35 +16,77 @@ html {
     @apply h-full;
 }
 
-@media (max-width: 445px) {
+@media (max-width: 490px) {
     .descriptiontext {
         display: none;
     }
     .text-1xl {
         font-size: 0.8em;
-        width: 70%;
-        margin-top: 20px;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .md\:top-\[60\%\] {
+        top: 50% !important;
     }
 }
+
+@media (max-width: 580px) {
+    .descriptiontext {
+        display: none;
+    }
+    .text-1xl {
+        font-size: 0.8em;
+        width: 100%;
+        margin-top: 20px;
+    }
+    .md\:top-\[60\%\] {
+        top: 50% !important;
+    }
+    .xl\:top-\[80\%\] {
+        top: 60% !important;
+    }
+    .buttonsize img {
+        width: 25px;
+        height: 25px;
+        margin-top: 5px;
+    }
+}
+
+@media (min-width: 750px) {
+    .md\:top-\[60\%\] {
+        top: 55% !important;
+    }
+    .buttonsize img {
+        width: 35px !important;
+        height: 35px !important;
+        margin-top: 5px;
+    }
+}
+
 
 @media (min-width: 700px) {
     .buttonsize svg {
         font-size: 25px;
     }
+    .buttonsize img {
+        width: 25px;
+        height: 25px;
+        margin-top: 8px !important;
+    }
 }
 
 @media (min-width: 768px) {
     .descriptiontext {
-        font-size: 15px !important;
+        font-size: 13px !important;
     }
     .md\:top-\[60\%\] {
-        top: 40% !important;
+        top: 37% !important;
     }
     .xl\:top-\[80\%\] {
         top: 60% !important;
     }
     .md\:text-lg {
-        width: 50% !important;
+        width: 65% !important;
     }
 }
 
@@ -68,11 +109,16 @@ html {
     .buttonsize svg {
         font-size: 25px;
     }
+    .buttonsize img {
+        width: 25px;
+        height: 25px;
+        margin-top: 12px !important;
+    }
     .md\:top-\[60\%\] {
-        top: 55% !important;
+        top: 45% !important;
     }
     .xl\:top-\[80\%\] {
-        top: 65% !important;
+        top: 60% !important;
     }
     .md\:text-lg {
         width: 50% !important;
@@ -81,10 +127,21 @@ html {
     }
 }
 
-@media (min-width: 632px) {
+@media (min-width: 590px) {
     .text-1xl {
         font-size: 1.5rem !important;
         line-height: 2rem !important;
+    }
+    .md\:top-\[60\%\] {
+        top: 45% !important;
+    }
+    .xl\:top-\[80\%\] {
+        top: 56% !important;
+    }
+    .buttonsize img {
+        width: 25px !important;
+        height: 25px !important;
+        margin-top: 5px;
     }
 }
 
@@ -92,11 +149,19 @@ html {
     .buttonsize svg {
         font-size: 25px;
     }
+    .buttonsize img {
+        width: 25px;
+        height: 25px;
+    }
 }
 
 @media (min-width: 1536px) {
     .buttonsize svg {
         font-size: 35px;
+    }
+    .buttonsize img {
+        width: 35px;
+        height: 35px;
     }
 }
 
@@ -104,13 +169,84 @@ html {
     .buttonsize svg {
         font-size: 35px;
     }
+    .buttonsize img {
+        width: 35px;
+        height: 35px;
+    }
     .xl\:top-\[80\%\] {
-        top: 75% !important;
+        top: 68% !important;
     }
     .xl\:top-\[65\%\] {
-        top: 65% !important;
+        top: 60% !important;
     }
     .xl\:w-\[50\%\] {
         width: 40% !important;
     }
+}
+
+/* Borrão que fica embaixo do vídeo no billboard */
+.bottom-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background-color: #141414;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(10px);
+    mask-image: linear-gradient(to bottom, #141414, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 50%, #141414 68%);
+}
+
+.custom-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+  
+.custom-slide img {
+    max-width: 100%;
+    height: auto;
+}
+
+.slick-prev:before {
+    color: #209cee !important;
+}
+
+.slick-next:before {
+    color: #209cee !important;
+}
+
+@media (max-width: 1024px) {
+    .slick-next:before {
+        display: none !important;
+    }
+    .slick-prev:before {
+        display: none !important;
+    }
+}
+
+.slick-slider {
+    overflow: visible !important;
+}
+
+.custom-slider {
+    overflow: visible !important;
+}
+
+.slick-initialized {
+    overflow: visible !important;
+}
+
+.group:hover .group-hover\:scale-110 {
+    --tw-scale-x: 1.3 !important;
+    --tw-scale-y: 1.3 !important;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.marginfifteen {
+    margin-left: 0.15em;
 }

@@ -102,18 +102,6 @@ model Sports {
   duration String
 }
 
-model Romance {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  title String
-  description String
-  videoUrl String
-  thumbnailUrl String
-  contentRatingUrl String
-  rating String
-  genre String
-  duration String
-}
-
 model Action {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   title String
@@ -126,7 +114,7 @@ model Action {
   duration String
 }
 
-model Comedy {
+model Nostalgic {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   title String
   description String
@@ -163,6 +151,30 @@ model Anime {
 }
 
 model Series {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String
+  videoUrl String
+  thumbnailUrl String
+  contentRatingUrl String
+  rating String
+  genre String
+  duration String
+}
+
+model OldSeries {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String
+  videoUrl String
+  thumbnailUrl String
+  contentRatingUrl String
+  rating String
+  genre String
+  duration String
+}
+
+model Incoming {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   title String
   description String
