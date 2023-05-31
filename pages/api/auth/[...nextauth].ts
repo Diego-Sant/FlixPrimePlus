@@ -1,4 +1,4 @@
-import NextAuth from "next-auth/next";
+import NextAuth, { AuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import {compare} from "bcrypt";
 
@@ -7,7 +7,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import prismadb from "@/lib/prismadb";
 
-export default NextAuth({
+export const authOptions: AuthOptions = ({
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID || "",
@@ -74,3 +74,5 @@ export default NextAuth({
     // Proteger e assinar os cookies da sessão
     secret: process.env.NEXTAUTH_SECRET
 })
+
+export default NextAuth(authOptions);

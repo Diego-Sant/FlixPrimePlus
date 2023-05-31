@@ -32,6 +32,8 @@ const MovieList: React.FC<MovieListProps> = ({data, title}) => {
     const endIndex = Math.ceil(currentIndex + 3);
     const visibleMovies = data.slice(startIndex, endIndex);
 
+    const showCarouselArrows = data.length > 3;
+
     return (
         <div className="relative -top-32 px-4 md:px-12 mt-4 space-y-8">
             <div>
@@ -49,7 +51,7 @@ const MovieList: React.FC<MovieListProps> = ({data, title}) => {
                               <IoIosArrowBack size={30} />
                             </button>
                           )}
-                          {index === visibleMovies.length - 1 && endIndex < data.length && (
+                          {index === visibleMovies.length - 1 && endIndex < data.length && showCarouselArrows && (
                             <button className="text-[#209dce] absolute -right-2 md:-right-9 top-10 sm:top-14 md:top-[80px] xl:top-40 lg:top-[90px] transform -translate-y-1/2 px-2 py-1 rounded" onClick={handleNext}>
                               <IoIosArrowForward size={30} />
                             </button>

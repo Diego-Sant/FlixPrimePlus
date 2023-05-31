@@ -6,6 +6,7 @@ import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 
 import useDataList from "@/hooks/useDataList";
+import useFavorites from "@/hooks/useFavorite";
 
 // Não é possivel usar o serverAuth pois o index.tsx faz parte do client
 export async function getServerSideProps(context: NextPageContext) {
@@ -38,6 +39,7 @@ export default function Home() {
   const {data: cartoonmovie = []} = useDataList("api/cartoonmovie");
   const {data: nostalgic = []} = useDataList("api/nostalgic");
   const {data: sports = []} = useDataList("api/sports");
+  const {data: favorites = []} = useFavorites();
 
   // Ordenar lista por ordem de rating(nota)
   const sortByRating = (data: Record<string, any>[]) => {
@@ -50,6 +52,7 @@ export default function Home() {
       <Billboard />
       <div className="pb-40"> 
         <MovieList title="Em alta" data={sortByRating(movies)} />
+        <MovieList title="Minha lista" data={favorites} />
         <MovieList title="Ação" data={sortByRating(action)} />
         <MovieList title="Séries" data={sortByRating(series)} />
         <MovieList title="Animes" data={sortByRating(anime)} />

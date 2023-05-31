@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import ReactPlayer from "react-player";
 
 import { BsFillPlayFill } from "react-icons/bs";
-import { AiFillStar, AiOutlinePlus } from "react-icons/ai";
+import { AiFillStar } from "react-icons/ai";
 import { FaVolumeUp, FaVolumeMute } from "react-icons/fa";
+
+import FavoriteButton from "./FavoriteButton";
 
 interface MovieCardProps {
     data: Record<string, any>;
@@ -12,7 +14,7 @@ interface MovieCardProps {
 
 const MovieCard: React.FC<MovieCardProps> = ({data}) => {
     // Retirar a vírgula, pegar as 3 primeiras palavras e adicionar um • entre as palavras
-    const formattedGenre = data.genre.split(",").slice(0, 3).join(" • ");
+    const formattedGenre = data?.genre ? data?.genre.split(",").slice(0, 3).join(" • ") : "";
 
     const [isHovered, setIsHovered] = useState(false);
     const [isAutoplay, setIsAutoplay] = useState(false);
@@ -58,9 +60,7 @@ const MovieCard: React.FC<MovieCardProps> = ({data}) => {
                         <div onClick={() => {}} className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
                             <BsFillPlayFill className="marginfifteen" size={30} />
                         </div>
-                        <div onClick={() => {}} className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-transparent border-white border-2 rounded-full flex justify-center items-center transition hover:bg-neutral-300">
-                            <AiOutlinePlus className=" text-white lg:text-[20px] text-[10px]" />
-                        </div>
+                        <FavoriteButton movieId={data?.id} />
                         {data?.videoUrl ? <div onClick={handleToggleMute} className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-transparent border-white border-2 rounded-full flex justify-center items-center transition hover:bg-neutral-300">
                             {muted ? <FaVolumeMute className="text-white lg:text-[15px] text-[10px]" /> : <FaVolumeUp className="text-white lg:text-[15px] text-[10px]"/>}
                         </div> : ""}
