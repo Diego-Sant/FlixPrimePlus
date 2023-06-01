@@ -25,7 +25,7 @@ html {
     }
 }
 
-@media (max-width: 410px) {
+@media (max-width: 460px) {
     .logoimage {
         width: 60px !important;
         height: 30px !important;
