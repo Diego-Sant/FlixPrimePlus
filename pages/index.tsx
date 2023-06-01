@@ -6,7 +6,6 @@ import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 
 import useDataList from "@/hooks/useDataList";
-import useFavorites from "@/hooks/useFavorite";
 import InfoModal from "@/components/InfoModal";
 
 import useInfoModal from "@/hooks/useInfoModal";
@@ -42,7 +41,6 @@ export default function Home() {
   const {data: cartoonmovie = []} = useDataList("api/cartoonmovie");
   const {data: nostalgic = []} = useDataList("api/nostalgic");
   const {data: sports = []} = useDataList("api/sports");
-  const {data: favorites = []} = useFavorites()
 
   const { isOpen, closeModal } = useInfoModal();
 
@@ -58,7 +56,6 @@ export default function Home() {
       <Billboard />
       <div className="pb-40"> 
         <MovieList title="Em alta" data={sortByRating(movies)} />
-        <MovieList title="Minha lista" data={favorites} />
         <MovieList title="Ação" data={sortByRating(action)} />
         <MovieList title="Séries" data={sortByRating(series)} />
         <MovieList title="Animes" data={sortByRating(anime)} />
