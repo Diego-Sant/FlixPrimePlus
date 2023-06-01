@@ -34,7 +34,7 @@ const MovieList: React.FC<MovieListProps> = ({data, title}) => {
     const showCarouselArrows = data.length > 3;
 
     return (
-        <div className="relative -top-32 px-4 md:px-12 mt-4 space-y-8">
+        <div className="relative -top-32 px-4 md:px-12 mt-4 space-y-8 smallmb">
             <div>
                 <p className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">{title}</p>
                 <div className="relative">

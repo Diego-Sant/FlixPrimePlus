@@ -73,7 +73,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose}) => {
                                     <PlayButton movieId={data?.id} />
                                     <FavoriteButton movieId={data?.id} />
                                 </div>
-                                {data?.videoUrl ? <div onClick={handleToggleMute} className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-transparent border-white border-2 rounded-full flex justify-center items-center transition hover:bg-neutral-300">
+                                {data?.videoUrl ? <div onClick={handleToggleMute} className="cursor-pointer muteinfosmall w-6 h-6 lg:w-10 lg:h-10 bg-transparent border-white border-2 rounded-full flex justify-center items-center transition hover:bg-neutral-300">
                                 {muted ? <FaVolumeMute className="text-white lg:text-[15px] text-[10px]" /> : <FaVolumeUp className="text-white lg:text-[15px] text-[10px]"/>}
                                 </div> : ""}
                             </div>

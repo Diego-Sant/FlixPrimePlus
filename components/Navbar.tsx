@@ -104,10 +104,10 @@ const Navbar  = () => {
     };
 
     return (
-        <nav className="w-full fixed z-40">
+        <nav className="w-full fixed z-40 topnavbarsmall">
             {/* style de background para colocar um degradê que no topo é #090909 e embaixo é #141414 que é exatamente a cor de fundo do site, isso só irá acontecer quando o showBackground for ativado */}
             <div className={`px-4 md:px-16 py-6 flex flex-row items-center transition duration-500 ${showBackground ? "bg-[#090909] bg-opacity-90" : ""} ${showBackground ? "bg-gradient-to-b from-[#090909] to-[#141414]" : ""}`}>
-                <Image src="/images/logo.png" alt="FlixPrime+" width={90} height={90} priority={true} style={imageStyle} />
+                <Image src="/images/logo.png" className="logoimage" alt="FlixPrime+" width={90} height={90} priority={true} style={imageStyle} />
                 <div className="flex-row ml-8 text-sm gap-7 hidden lg:flex">
                     <NavbarItem label="Início" onClick={() => router.push('/')} />
                     <NavbarItem label="Séries" onClick={() => router.push('/genero/serie')} />

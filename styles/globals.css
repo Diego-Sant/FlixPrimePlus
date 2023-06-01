@@ -16,7 +16,54 @@ html {
     @apply h-full;
 }
 
+@media (max-width: 315px) {
+    .smaller {
+        display: none;
+    }
+    .smallmb {
+        top: -110px !important;
+    }
+}
+
+@media (max-width: 410px) {
+    .logoimage {
+        width: 60px !important;
+        height: 30px !important;
+    }
+    .contentsmall {
+        display: none;
+    }
+    .topnavbarsmall {
+        top: -5px !important;
+    }
+    .buttonsmall {
+        right: -41px !important;
+        top: 10px !important;
+    }
+    .smallmb:first-child {
+        margin-top: 100px !important;
+    }
+    .topsmall {
+        top: -24px !important;
+    }
+    .smallcontent {
+        display: none;
+    }
+    .mutesmall {
+        display: none;
+    }
+    .durationsmall {
+        margin-left: -15px !important;
+    }
+    .muteinfosmall {
+        margin-left: -120px !important;
+    }
+}
+
 @media (max-width: 490px) {
+    .descriptiontext {
+        display: none;
+    }
     .descriptiontext {
         display: none;
     }
@@ -49,6 +96,9 @@ html {
         width: 25px;
         height: 25px;
         margin-top: 5px;
+    }
+    .favoritesmall {
+        display: none;
     }
 }
 

@@ -1,10 +1,14 @@
 import React from "react";
 
+import { useRouter } from "next/router";
+
 interface MobileMenuProps {
     visible?: boolean,
 }
 
 const MobileMenu: React.FC<MobileMenuProps> = ({visible}) => {
+    const router = useRouter();
+
     if(!visible) {
         return null;
     }
@@ -17,12 +21,11 @@ const MobileMenu: React.FC<MobileMenuProps> = ({visible}) => {
             <div className="w-4 h-4 bg-white absolute transform rotate-45 -top-2" style={{ left: "calc(29.5% - 7px)" }}></div>
             {/* Quadrado preto para tirar uma parte do quadrado branco e transformar em triângulo, feito o calc no bottom por ser um número longo e muito específico*/}
             <div className="w-8 h-4 bg-black absolute -left-24 right-0 mx-auto" style={{bottom: "calc(100% - 16px)"}}></div>
-                <div className="px-3 text-center text-white hover:underline">Início</div>
-                <div className="px-3 text-center text-white hover:underline">Séries</div>
-                <div className="px-3 text-center text-white hover:underline">Filmes</div>
-                <div className="px-3 text-center text-white hover:underline">Bombando</div>
-                <div className="px-3 text-center text-white hover:underline">Minha lista</div>
-                <div className="px-3 text-center text-white hover:underline">Navegar por idiomas</div>
+                <div onClick={() => router.push("/")} className="px-3 text-center text-white hover:underline">Início</div>
+                <div onClick={() => router.push("/genero/serie")} className="px-3 text-center text-white hover:underline">Séries</div>
+                <div onClick={() => router.push("/genero/filmes")} className="px-3 text-center text-white hover:underline">Filmes</div>
+                <div onClick={() => router.push("/genero/emalta")} className="px-3 text-center text-white hover:underline">Bombando</div>
+                <div onClick={() => router.push("/genero/minhalista")} className="px-3 text-center font-bold text-white hover:underline">Minha lista</div>
             </div>
         </div>
     )
