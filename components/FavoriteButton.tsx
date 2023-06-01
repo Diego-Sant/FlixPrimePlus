@@ -10,7 +10,7 @@ interface FavoriteButtonProps {
     movieId: string,
 }
 
-const FavoriteButton: React.FC<FavoriteButtonProps> = ({movieId}) => {
+const FavoriteButton: React.FC<FavoriteButtonProps> = ({movieId, }) => {
     const {mutate: mutateFavorites} = useFavorites();
     const {data: currentUser, mutate} = useCurrentUser();
 

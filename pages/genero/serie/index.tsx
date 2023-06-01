@@ -1,12 +1,11 @@
 import Billboard from "@/components/Billboard";
-import MovieList from "@/components/MovieList";
+import MovieNavbarList from "@/components/MovieNavbarList";
 import Navbar from "@/components/Navbar";
 
 import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 
 import useDataList from "@/hooks/useDataList";
-import useFavorites from "@/hooks/useFavorite";
 import InfoModal from "@/components/InfoModal";
 
 import useInfoModal from "@/hooks/useInfoModal";
@@ -32,17 +31,8 @@ export async function getServerSideProps(context: NextPageContext) {
 }
 
 export default function Home() {
-  const {data: movies = []} = useDataList("api/movies");
-  const {data: action = []} = useDataList("api/action");
   const {data: series = []} = useDataList("api/series");
-  const {data: anime = []} = useDataList("api/anime");
-  const {data: incoming = []} = useDataList("api/incoming");
-  const {data: superheroes = []} = useDataList("api/superheroes");
   const {data: oldseries = []} = useDataList("api/oldseries");
-  const {data: cartoonmovie = []} = useDataList("api/cartoonmovie");
-  const {data: nostalgic = []} = useDataList("api/nostalgic");
-  const {data: sports = []} = useDataList("api/sports");
-  const {data: favorites = []} = useFavorites()
 
   const { isOpen, closeModal } = useInfoModal();
 
@@ -57,17 +47,8 @@ export default function Home() {
       <Navbar />
       <Billboard />
       <div className="pb-40"> 
-        <MovieList title="Em alta" data={sortByRating(movies)} />
-        <MovieList title="Minha lista" data={favorites} />
-        <MovieList title="Ação" data={sortByRating(action)} />
-        <MovieList title="Séries" data={sortByRating(series)} />
-        <MovieList title="Animes" data={sortByRating(anime)} />
-        <MovieList title="Em breve" data={incoming} />
-        <MovieList title="Super-heróis" data={sortByRating(superheroes)} />
-        <MovieList title="Séries antigas" data={sortByRating(oldseries)} />
-        <MovieList title="Filmes animados" data={sortByRating(cartoonmovie)} />
-        <MovieList title="Nostálgico" data={sortByRating(nostalgic)} />
-        <MovieList title="Esportes" data={sortByRating(sports)} />
+        <MovieNavbarList title="Séries" data={sortByRating(series)} />
+        <MovieNavbarList title="Séries Antigas" data={sortByRating(oldseries)} />
       </div>
     </>
   )

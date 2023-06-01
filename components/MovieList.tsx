@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import {isEmpty} from "lodash"
 
@@ -14,23 +14,22 @@ interface MovieListProps {
 const MovieList: React.FC<MovieListProps> = ({data, title}) => {
     const [currentIndex, setCurrentIndex] = useState(0); // Define a primeira imagem como index 0
 
-    // Carrosel para mover 1 index para frente
+    // Quando chegar no limite máximo da array(data.length - 1), ele será reiniciado para 0, criando um carrossel infinito
     const handleNext = () => {
-      setCurrentIndex((prevIndex) => prevIndex + 1);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
     };
   
-    // Carrosel para mover 1 index para trás
+    // Lógica que se o valor for igual a 0 não poderá ir para a esquerda, caso não seja, poderá
     const handlePrev = () => {
-      setCurrentIndex((prevIndex) => prevIndex - 1);
+      setCurrentIndex((prevIndex) => prevIndex === 0 ? data.length - 1 : prevIndex - 1);
     };
 
     if (isEmpty(data)) {
         return null;
     }
 
-    const startIndex = Math.floor(currentIndex);
-    const endIndex = Math.ceil(currentIndex + 3);
-    const visibleMovies = data.slice(startIndex, endIndex);
+    const startIndex = currentIndex;
+    const visibleMovies = [data[startIndex], data[(startIndex + 1) % data.length], data[(startIndex + 2) % data.length]];
 
     const showCarouselArrows = data.length > 3;
 
@@ -51,7 +50,7 @@ const MovieList: React.FC<MovieListProps> = ({data, title}) => {
                               <IoIosArrowBack size={30} />
                             </button>
                           )}
-                          {index === visibleMovies.length - 1 && endIndex < data.length && showCarouselArrows && (
+                          {index === visibleMovies.length - 1 && showCarouselArrows && (
                             <button className="text-[#209dce] absolute -right-2 md:-right-9 top-10 sm:top-14 md:top-[80px] xl:top-40 lg:top-[90px] transform -translate-y-1/2 px-2 py-1 rounded" onClick={handleNext}>
                               <IoIosArrowForward size={30} />
                             </button>

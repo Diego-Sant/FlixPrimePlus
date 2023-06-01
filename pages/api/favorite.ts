@@ -88,7 +88,7 @@ export default async function handler(req:NextApiRequest, res: NextApiResponse) 
             }
       
             if (!existingMovie) {
-              throw new Error("Invalid ID");
+              throw new Error("ID inválido!");
             }
       
             const updatedFavoriteIds = without(currentUser.favoriteIds, movieId);

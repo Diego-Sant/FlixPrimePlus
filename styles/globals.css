@@ -198,6 +198,19 @@ html {
     -webkit-mask-image: linear-gradient(to bottom, transparent 50%, #141414 68%);
 }
 
+.bottom-overlaymodal {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 45%;
+    background-color: #141414;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(10px);
+    mask-image: linear-gradient(to bottom, #141414, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 50%, #141414 68%);
+}
+
 .custom-slide {
     display: flex;
     align-items: center;
@@ -249,4 +262,8 @@ html {
 
 .marginfifteen {
     margin-left: 0.15em;
+}
+
+.slide-animation {
+    transition: transform 10s ease-in-out;
 }

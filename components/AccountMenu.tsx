@@ -36,7 +36,7 @@ const AccountMenu: React.FC<AccountMenuProps>  = ({visible, imageSrc}) => {
                 {/* Quadrado preto para tirar uma parte do quadrado branco e transformar em triângulo, feito o calc no bottom por ser um número longo e muito específico*/}
                 <div className="w-8 h-5 bg-black border-t-2 border-gray-800 -top-0.5 absolute right-0 mx-auto" style={{bottom: "calc(100% - 16px)", left: "calc(100% - 90px)"}}></div>
                 <div onClick={() => signOut()} className="px-3 text-center text-white text-sm hover:underline">
-                    Sair da FlixPrime+
+                    Sair do FlixPrime+
                 </div>
             </div>
         </div>

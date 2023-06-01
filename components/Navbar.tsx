@@ -4,15 +4,18 @@ import NavbarItem from "./NavbarItem";
 import MobileMenu from "./MobileMenu";
 import AccountMenu from "./AccountMenu";
 
-import { BsSearch, BsBell } from "react-icons/bs";
 import { useCallback, useEffect, useState } from "react";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
+
+import { useRouter } from "next/router";
 
 // Valor em pixels usado para quando a tela ultrapassar esse valor acontecer algo
 const TOP_OFFSET = 66;
 
 const Navbar  = () => {
+    const router = useRouter();
+
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const [showAccountMenu, setShowAccountMenu] = useState(false);
     const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
@@ -106,12 +109,11 @@ const Navbar  = () => {
             <div className={`px-4 md:px-16 py-6 flex flex-row items-center transition duration-500 ${showBackground ? "bg-[#090909] bg-opacity-90" : ""} ${showBackground ? "bg-gradient-to-b from-[#090909] to-[#141414]" : ""}`}>
                 <Image src="/images/logo.png" alt="FlixPrime+" width={90} height={90} priority={true} style={imageStyle} />
                 <div className="flex-row ml-8 text-sm gap-7 hidden lg:flex">
-                    <NavbarItem label="Início" />
-                    <NavbarItem label="Séries" />
-                    <NavbarItem label="Filmes" />
-                    <NavbarItem label="Bombando" />
-                    <NavbarItem label="Minha lista" />
-                    <NavbarItem label="Navegar por idiomas" />
+                    <NavbarItem label="Início" onClick={() => router.push('/')} />
+                    <NavbarItem label="Séries" onClick={() => router.push('/genero/serie')} />
+                    <NavbarItem label="Filmes" onClick={() => router.push('/genero/filmes')} />
+                    <NavbarItem label="Bombando" onClick={() => router.push('/genero/emalta')} />
+                    <NavbarItem label="Minha lista" onClick={() => router.push('/genero/minhalista')} />
                 </div>
                 {/* Colocado onMouseEnter e onMouseLeave para aparecer e sair o container caso o mouse esteja em cima ou não */}
                 <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="lg:hidden flex flex-row items-center gap-2 ml-8 cursor-pointer relative">
@@ -120,12 +122,6 @@ const Navbar  = () => {
                     {showMobileMenu && <MobileMenu visible={showMobileMenu} />}
                 </div>
                 <div className="flex flex-row ml-auto gap-7 items-center">
-                    <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">
-                        <BsSearch size={18} />
-                    </div>
-                    <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">
-                        <BsBell size={18} />
-                    </div>
                     <div onMouseEnter={handleAccountMouseEnter} onMouseLeave={handleAccountMouseLeave} className="flex flex-row items-center gap-2 cursor-pointer relative">
                         <div className="w-8 h-8 lg:w-9 lg:h-9 rounded-md overflow-hidden">
                             {/* Feito isso pois o next.js imagina que possa ter uma situação que a imagem e o alt não seria utilizados */}
